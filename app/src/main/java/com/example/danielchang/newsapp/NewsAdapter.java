@@ -11,15 +11,15 @@ import android.widget.TextView;
 
 
 import com.example.danielchang.newsapp.model.ItemClickListener;
-import com.example.danielchang.newsapp.model.News;
+import com.example.danielchang.newsapp.model.NewsItem;
 
 
 import java.util.ArrayList;
 
-class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
+class NewsItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     private ItemClickListener itemClickListener;
-    public RecyclerViewHolder(View itemView){
+    public NewsItemViewHolder(View itemView){
         super(itemView);
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
@@ -43,9 +43,9 @@ class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     Context mContext;
-    ArrayList<News> mNews;
+    ArrayList<NewsItem> mNews;
 
-    public NewsAdapter(Context context, ArrayList<News> news){
+    public NewsAdapter(Context context, ArrayList<NewsItem> news){
         this.mContext = context;
         this.mNews = news;
     }
@@ -85,9 +85,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
         }
 
         void bind(int listIndex) {
-            title.setText(mNews.get(listIndex).getTitle());
-            description.setText(mNews.get(listIndex).getDescription());
-            publishedAt.setText(mNews.get(listIndex).getPublishedAt());
+            title.setText("Title: " + mNews.get(listIndex).getTitle());
+            description.setText("Description: " + mNews.get(listIndex).getDescription());
+            publishedAt.setText("Date: " + mNews.get(listIndex).getPublishedAt());
 
         }
 

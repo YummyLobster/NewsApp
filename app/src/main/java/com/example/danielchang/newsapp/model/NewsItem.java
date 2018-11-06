@@ -1,12 +1,12 @@
 package com.example.danielchang.newsapp.model;
 
-public class News {
+public class NewsItem {
     private String title;
     private String description;
     private String url;
     private String publishedAt;
 
-    public News(String title, String description, String url, String publishedAt) {
+    public NewsItem(String title, String description, String url, String publishedAt) {
         this.title = title;
         this.description = description;
         this.url = url;

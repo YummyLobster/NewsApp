@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.example.danielchang.newsapp.model.News;
-import com.example.danielchang.newsapp.utilities.JSONUtils;
+import com.example.danielchang.newsapp.model.NewsItem;
+import com.example.danielchang.newsapp.utilities.JsonUtils;
 import com.example.danielchang.newsapp.utilities.NetworkUtils;
 
 import java.io.IOException;
@@ -22,21 +22,21 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText mSearchBoxEditText;
+    //private EditText mSearchBoxEditText;
 
     private ProgressBar mProgressBar;
     private NewsAdapter mAdapter;
     private RecyclerView mNumberList;
-    private ArrayList<News> news = new ArrayList<>();
+    private ArrayList<NewsItem> news = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
+        //mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
         mProgressBar = (ProgressBar) findViewById(R.id.progress);
-        mNumberList = (RecyclerView)findViewById(R.id.rv_numbers);
+        mNumberList = (RecyclerView)findViewById(R.id.news_recyclerview);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mNumberList.setLayoutManager(layoutManager);
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private URL makeGithubSearchQuery() {
-        String githubQuery = mSearchBoxEditText.getText().toString();
-        URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
+        //String githubQuery = mSearchBoxEditText.getText().toString();
+        URL githubSearchUrl = NetworkUtils.buildUrl();
         String urlString = githubSearchUrl.toString();
         Log.d("mycode", urlString);
         return githubSearchUrl;
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("mycode", s);
             super.onPostExecute(s);
             mProgressBar.setVisibility(View.GONE);
-            news = JSONUtils.makeRepositoryList(s);
+            news = JsonUtils.parseNews(s);
             mAdapter.mNews.addAll(news);
             mAdapter.notifyDataSetChanged();
         }

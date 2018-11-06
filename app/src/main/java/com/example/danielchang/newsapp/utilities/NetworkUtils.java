@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class NetworkUtils {
     final static String NEWS_BASE_URL =
-            "https://newsapi.org/v2/everything";
+            "https://newsapi.org/v1/articles";
 
     final static String PARAM_QUERY = "q";
 
@@ -30,12 +30,10 @@ public class NetworkUtils {
     /**
      * Builds the URL used to query Github.
      *
-     * @param githubSearchQuery The keyword that will be queried for.
      * @return The URL to use to query the weather server.
      */
-    public static URL buildUrl(String githubSearchQuery) {
+    public static URL buildUrl() {
         Uri builtUri = Uri.parse(NEWS_BASE_URL).buildUpon()
-                .appendQueryParameter(PARAM_QUERY,githubSearchQuery)
                 .appendQueryParameter(PARAM_SORT, sortBy)
                 .appendQueryParameter(PARAM_APIKEY,apiKey)
                 .appendQueryParameter(PARAM_SOURCE,source)
