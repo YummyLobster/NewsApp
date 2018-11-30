@@ -15,6 +15,7 @@ import com.example.danielchang.newsapp.model.NewsItem;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 class NewsItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
@@ -43,7 +44,7 @@ class NewsItemViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     Context mContext;
-    ArrayList<NewsItem> mNews;
+    List<NewsItem> mNews;
 
     public NewsAdapter(Context context, ArrayList<NewsItem> news){
         this.mContext = context;
@@ -69,6 +70,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     @Override
     public int getItemCount() {
         return mNews.size();
+    }
+
+    public void setNews(List<NewsItem> news){
+        this.mNews = news;
+        notifyDataSetChanged();
     }
 
     class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

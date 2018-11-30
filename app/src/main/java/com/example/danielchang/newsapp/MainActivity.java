@@ -1,7 +1,10 @@
 package com.example.danielchang.newsapp;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,16 +12,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.danielchang.newsapp.model.NewsItem;
 import com.example.danielchang.newsapp.utilities.JsonUtils;
 import com.example.danielchang.newsapp.utilities.NetworkUtils;
+import com.example.danielchang.newsapp.data.NewsItemViewModel;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private NewsAdapter mAdapter;
     private RecyclerView mNumberList;
     private ArrayList<NewsItem> news = new ArrayList<>();
+    private NewsItemViewModel newsItemViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter = new NewsAdapter(this,news);
         mNumberList.setAdapter(mAdapter);
+
+        newsItemViewModel = ViewModelProviders.of(this).get(NewsItemViewModel.class);
+        //Observer
+        newsItemViewModel.getAllNews().observe(this, new Observer<List<NewsItem>>() {
+            @Override
+            public void onChanged(@Nullable List<NewsItem> newsItems) {
+                //Data
+                mAdapter.setNews(newsItems);
+            }
+        });
 
     }
 
